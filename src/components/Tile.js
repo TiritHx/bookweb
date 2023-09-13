@@ -7,7 +7,7 @@ function Tile(props) {
     <div className="border tile">
       <p>{props.title}</p>
       <img src={src} alt="placeholder" />
-      <p>{props.rating}</p>
+      <p>{props.rating} / 10</p>
     </div>
   );
 }
