@@ -79,6 +79,8 @@ body {
   height: 34vh;
   width: auto;
   max-width: 34vh;
+  min-width: 34vh;
+  min-height: 34vh;
   background-color: rgb(65, 65, 65);
   text-align: center;
   justify-content: center;
