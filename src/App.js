@@ -6,18 +6,24 @@ const images = require.context('./images', true);
 const imageList = images.keys().map(image => images(image));
 
 function App() {
-
+  
   const DownloadSource = (url) => {
   useEffect(() => {
     fetch(url)
     .then(response => response.blob())
     .then(blob => new Promise((resolve, reject) => {
     const reader = new FileReader();
+    let x;
     reader.onloadend = () => resolve(reader.result);
+    reader.onload = (evt) => {
+      console.log(evt.target.result)
+      x = evt.target.result;
+    };
     reader.onerror = reject;
     reader.readAsDataURL(blob);
-    console.log(reader);
-    return reader;
+    
+    console.log(x);
+    return x;
     }))
    .catch(error => console.log(error))
   }, []);
