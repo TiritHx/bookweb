@@ -8,7 +8,7 @@ const imageList = images.keys().map(image => images(image));
 function App() {
   // const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch('https://127.0.0.1:3001')
+    fetch('https://localhost:3001')
    .then(response => response)
    .then(data => console.log(data));
   }, []);
