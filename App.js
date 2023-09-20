@@ -1,22 +1,17 @@
-import './App.css';
-import Menu from './components/Menu';
-import Tile from './components/Tile';
-import Add from './Add'
-import React, { useState } from "react"
+import  {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
-function App() {
-  const onSaveInnerDataHandler = (enteredData) => {
-    console.log(enteredData);
-    setData((prevState) => [...prevState, enteredData])
-  }
+import Home from './pages/Home';
+import Adding from './pages/Adding';
 
-  const [DATA, setData] = useState([{title: "tytuł", src: "./mhm", rating: 5.8},{title: "ksiąszka", src: null, rating: 9.9}]);
-  
+const router = createBrowserRouter ([
+  { path: '/', element: <Home />},
+  { path: '/add', element: <Adding />},
+])
+
+function App() {  
   return (
     <div>
-      <Menu />
-      <Add onSaveInnerData = {onSaveInnerDataHandler} />
-      {DATA.map(x => <Tile title={x.title} src={x.src} rating={x.rating} />)}
+      <RouterProvider router={router}/>
     </div>
   );
 }
