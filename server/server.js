@@ -1,16 +1,11 @@
-const http = require('http');
-const express = require('express');
+const jsonServer = require('json-server')
+const server = jsonServer.create()
+const middlewares = jsonServer.defaults()
 const path = require('path')
-const router = jsonServer.router(path.join(__dirname, 'db.json')) // zrupp db.dżejson
- 
-const app = express();
-const port = 3001;
- 
-app.get('/', (req, res)=>{
-  res.send("hellowrold"); // głupi jesteś json serwerem se puzyniej użyj ęż?
-});
+const router = jsonServer.router(path.join(__dirname, 'db.json'))
 
- 
-app.listen(port, () => {
-  console.log(`Express running on port ${port}`);
-});
+server.use(middlewares)
+server.use(router)
+server.listen(3001, () => {
+  console.log('JSON Server is running')
+})
