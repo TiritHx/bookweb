@@ -40,29 +40,24 @@ function Add(props) {
   const changeInput = (e) => {
     changeTitle(e.target.value);
   }
-  const [_src, changeSrc] = useState(['tre'])
-  const getBase64StringFromDataURL = (dataURL) =>
-    dataURL.replace('data:', '').replace(/^.+,/, '');
-  const changeInput1 = (e) => {  //jescze nie dziala
-    const image = e.target.files[0]
-    console.log(image)
-    fetch(image)
-        .then((res) => res.blob())
-        .then((blob) => {
-            // Read the Blob as DataURL using the FileReader API
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                console.log(reader.result);
-                changeSrc(reader.result);
-                // Logs data:image/jpeg;base64,wL2dvYWwgbW9yZ...
 
-                // Convert to Base64 string
-                const base64 = getBase64StringFromDataURL(reader.result);
-                console.log(base64);
-                // Logs wL2dvYWwgbW9yZ...
-            };
-            reader.readAsDataURL(blob);
-        });
+  const [_src, changeSrc] = useState(['tre'])
+
+  const convertImage = (imageFile) => { //it works
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const dataURL = e.target.result;
+      changeSrc(dataURL);
+    };
+
+    reader.readAsDataURL(imageFile);
+  };
+
+  const changeInput1 = (e) => {
+    const image = e.target.files[0]
+
+    convertImage(image);
   }
   const [_rating, changeRating] = useState(0);
   const changerating =() =>{
