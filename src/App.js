@@ -9,7 +9,7 @@ function App() {
   const [_src, changeSrc] = useState('tre');
   const [_rating, changeRating] = useState(0); // podączyć te 3 zmienne
 
-  const getData = () => {
+  const getData = () => { // funkcja do pobiernia rzeczy z dazy banych
     var requestOptions = {
       method: "GET",
       redirect: "follow",
@@ -25,15 +25,13 @@ function App() {
     getData();
   }, []);
 
-  const SendData = () => {
+  const SendData = () => { // funkcja do wysyłania rzeczy do dazy banych, nadpisuje całą daze banych, maybe to potem zmienie ¯\_(ツ)_/¯
     var requestOptions = {
       method: "POST",
       redirect: "follow",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({title: _title, src: _src, rating: _rating})
     };
-    console.log(requestOptions);
-    console.log('wcisłem');
     fetch("http://localhost:3001/posts", requestOptions)
     .then(updateDATA([...DATA, {title: _title, src: _src, rating: _rating}]))
     .catch(error => console.log("error", error));    
@@ -41,10 +39,11 @@ function App() {
   
   return (
     <div>
-      <Menu />
+      <Menu /> 
       <div className='container'> 
         {DATA.map((x, index) => <Tile title={x.title} src={x.src == undefined ? '' : x.src} rating={x.rating} key={index} />)}
-        <button onClick={SendData}></button>
+        <button style={{display: "none"}} onClick={SendData}></button> 
+        {/* ten guzior ma moc wysyłania rzeczy do dazy banych, używać z rozwagą, może nadpisać całą daze banych */}
       </div>
       
     </div>
