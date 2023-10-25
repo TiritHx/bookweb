@@ -125,7 +125,20 @@ body {
   font-weight: bold;
 }
 
+textarea {
+  background-color: rgb(var(--light-gray));
+  clear: left;
+  float: left;
+  margin-right: 10px;
+}
+
+.rate {
+  float: left;
+  clear: right;
+}
+
 form{
+  height: auto;
   width: 90%;
   margin: auto;
 }
