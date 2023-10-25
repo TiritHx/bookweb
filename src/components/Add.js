@@ -2,6 +2,8 @@ import { useEffect, useState, setState, useRef } from 'react';
 
 function Add(props) {
   const rateRef = useRef();
+  const rateRefText = useRef();
+
 
   const SendData = () => {
     var requestOptions = {
@@ -59,8 +61,14 @@ function Add(props) {
   const [_rating, changeRating] = useState(0);
   const changerating =() =>{
     //let radios = document.querySelectorAll('input[name="rate"]:checked')
-    const ratingElement = rateRef.current
-    console.log(ratingElement)
+    if(rateRef.current.checked){
+      rateRef.current.value = "Liked"
+      rateRefText.current.textContent = rateRef.current.value
+    }else{
+      rateRef.current.value = "Disliked"
+      rateRefText.current.textContent = rateRef.current.value
+    }
+    console.log(rateRef.current.value)
     // let x = rateRef.current.map((x, index) => x.checked ? 1 : 0);
     // console.log(x);
     //let rate = []
@@ -81,8 +89,8 @@ function Add(props) {
         <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
         <textarea rows="10" cols="100" defaultValue="Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️"></textarea>
         <p>Rating:</p>
-        <div className="rate" ref={rateRef}>
-          {[...Array(5)].map((_, x) => <div key={x}><input type="radio" onChange={changerating} id={"star" + (10 - x)} name="rate" value={10 - x} /><label htmlFor={"star" + (10-x)} title="text"></label></div>)}
+        <div className="rate">
+          <div><p ref={rateRefText}></p><input type="checkbox" onChange={changerating} name="rate" ref={rateRef} /></div>
         </div>
         
         <input type="submit" onClick={clickHandler} value="OK"></input>
