@@ -61,14 +61,12 @@ function Add(props) {
 
   const changerating =() =>{
     if(rateRef.current.checked){
-      rateRef.current.value = "👍"
-      rateRefText.current.textContent = rateRef.current.value
+      rateRefText.current.textContent = "👍"
       if(rateRef.current.checked){
         changeRating(1)
       }
     }else{
-      rateRef.current.value = "👎"
-      rateRefText.current.textContent = rateRef.current.value
+      rateRefText.current.textContent = "👎"
       if(!rateRef.current.checked){
         changeRating(0)
       }
@@ -86,19 +84,30 @@ function Add(props) {
           <input id="inputuno" type="text" value={_title} onChange={changeInput}></input><br/>
         </div>
         <div className="discription">
-          <textarea rows="10" cols="100" defaultValue="Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️"></textarea><br/>
-          <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
-        </div>
-        <div className="rate">
+          <textarea rows="10" cols="100" placeholder="Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️"></textarea><br/>
+          <label className='custom-input'>
+            <p>Wybierz plik</p>
+            <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
+          </label>
+          <div className="rate">
           <p>Rating:</p>
-          <div><p ref={rateRefText}></p><input type="checkbox" onChange={changerating} name="rate" ref={rateRef} /></div>
+          <div>
+            <label className='custom-label'>
+              <p className='custom-like' ref={rateRefText}>👍</p>
+              <input type="checkbox" className='like' onChange={changerating} name="rate" ref={rateRef} ></input>
+            </label>
+          </div>
           <input type="submit" onClick={clickHandler} value="OK"></input>
         </div>
+        </div>
       </form>
-      <div className="border tile test" style={{textAlign:'center'}}>
-        <p>{_title}</p>
-        <img src={_src} className='imagetest' alt=''></img>
-        <p>{_rating}</p>
+      <div>
+        <div className="border tile test">
+          <p>{_title}</p>
+          <img src={_src} className='imagetest' alt=''></img>
+          <p>{_rating}</p>
+        </div>
+        <p className='overview'>Overview</p>
       </div>
     </div>
   );

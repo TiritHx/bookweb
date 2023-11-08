@@ -130,6 +130,9 @@ textarea {
   margin-right: 10px;
 }
 
+textarea::placeholder{
+  color: rgb(182, 182, 182);
+}
 
 form{
   height: auto;
@@ -156,10 +159,7 @@ input[type=text]{
 input[type=submit]{
   background-color: rgba(255, 255, 255, 0.205);
   padding: 1vh 10vh;
-}
-
-.discription{
-  float: left;
+  cursor: pointer;
 }
 
 .imagetest{
@@ -174,3 +174,44 @@ input[type=submit]{
   clear: both;
   margin: auto;
 }
+
+input[type=file] {
+  display: none;
+}
+
+.custom-input p{
+  background-color: rgba(255, 255, 255, 0.205);
+  padding: 1vh 10vh;
+  width: 8vw;
+  text-align: center;
+  cursor: pointer;
+}
+
+.custom-label p{
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input[type=checkbox] {
+  cursor: pointer;
+  display: none;
+  width: auto;
+}
+
+
+.overview{
+  width: auto;
+  max-width: 34vh;
+  min-width: 34vh;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.discription{
+  -webkit-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+  -moz-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+  box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+}
+
