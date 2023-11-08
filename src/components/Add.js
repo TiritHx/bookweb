@@ -59,23 +59,23 @@ function Add(props) {
     convertImage(image);
   }
   const [_rating, changeRating] = useState(0);
+
+
+
   const changerating =() =>{
-    //let radios = document.querySelectorAll('input[name="rate"]:checked')
     if(rateRef.current.checked){
-      rateRef.current.value = "Liked"
+      rateRef.current.value = "👍"
       rateRefText.current.textContent = rateRef.current.value
+      if(rateRef.current.checked){
+        changeRating(1)
+      }
     }else{
-      rateRef.current.value = "Disliked"
+      rateRef.current.value = "👎"
       rateRefText.current.textContent = rateRef.current.value
+      if(!rateRef.current.checked){
+        changeRating(0)
+      }
     }
-    console.log(rateRef.current.value)
-    // let x = rateRef.current.map((x, index) => x.checked ? 1 : 0);
-    // console.log(x);
-    //let rate = []
-    //radios.forEach((radio) =>{
-      //rate.push(radio.value)
-    //})
-    //changeRating(rate)
   }
   const clickHandler = () => {
     SendData()
