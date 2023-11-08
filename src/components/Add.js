@@ -1,4 +1,4 @@
-import { useEffect, useState, setState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 function Add(props) {
   const rateRef = useRef();
@@ -40,7 +40,7 @@ function Add(props) {
     changeTitle(e.target.value);
   }
 
-  const [_src, changeSrc] = useState(['tre'])
+  const [_src, changeSrc] = useState([''])
 
   const convertImage = (imageFile) => { //it works
     const reader = new FileReader();
@@ -55,12 +55,9 @@ function Add(props) {
 
   const changeInput1 = (e) => {
     const image = e.target.files[0]
-
     convertImage(image);
   }
   const [_rating, changeRating] = useState(0);
-
-
 
   const changerating =() =>{
     if(rateRef.current.checked){
@@ -84,17 +81,25 @@ function Add(props) {
   return (
     <div>
       <form id="miform">
-        <p>Title:</p>
-        <input id="inputuno" type="text" value={_title} onChange={changeInput}></input><br></br>
-        <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
-        <textarea rows="10" cols="100" defaultValue="Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️"></textarea>
-        <p>Rating:</p>
-        <div className="rate">
-          <div><p ref={rateRefText}></p><input type="checkbox" onChange={changerating} name="rate" ref={rateRef} /></div>
+        <div className="titlebar">
+          <p>Title:</p>
+          <input id="inputuno" type="text" value={_title} onChange={changeInput}></input><br/>
         </div>
-        
-        <input type="submit" onClick={clickHandler} value="OK"></input>
+        <div className="discription">
+          <textarea rows="10" cols="100" defaultValue="Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️"></textarea><br/>
+          <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
+        </div>
+        <div className="rate">
+          <p>Rating:</p>
+          <div><p ref={rateRefText}></p><input type="checkbox" onChange={changerating} name="rate" ref={rateRef} /></div>
+          <input type="submit" onClick={clickHandler} value="OK"></input>
+        </div>
       </form>
+      <div className="border tile test" style={{textAlign:'center'}}>
+        <p>{_title}</p>
+        <img src={_src} className='imagetest' alt=''></img>
+        <p>{_rating}</p>
+      </div>
     </div>
   );
 }
