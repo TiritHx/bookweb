@@ -1,49 +1,69 @@
-import { useEffect, useState, setState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import Tile from './Tile';
+
+
 
 function Add(props) {
+  const rateRef = useRef();
+  const rateRefText = useRef();
 
-  const SendData = () => {
-    var requestOptions = {
-      method: "POST",
-      redirect: "follow",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({title: _title, src: _src, rating: _rating})
-    };
-    console.log(requestOptions);
-    console.log('wcisłem');
-    fetch("http://localhost:3001/posts", requestOptions)
-    .then(updateDATA([...DATA, {title: _title, src: _src, rating: _rating}]))
-    .then(console.log(DATA))
-    .catch(error => console.log("error", error));    
-  };
+  const noDo = (e) => {
+    e.preventDefault();
+  }
 
   const [DATA, updateDATA] = useState(['']);
     
-      const getData = () => {
-        var requestOptions = {
-          method: "GET",
-          redirect: "follow",
-        };
-    
-        fetch("http://localhost:3001/posts", requestOptions)
-          .then((response) => response.json())
-          .then((result) => updateDATA(result))
-          .then(console.log(DATA))
-          .catch((error) => console.log("error", error));
-      };
+  const getData = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:3001/posts", requestOptions)
+      .then((response) => response.json())
+      .then((result) => updateDATA(result))
+      .catch((error) => console.log("error", error));
+  };
     
       useEffect(() => {
         getData();
       }, []);
 
-  const [_title, changeTitle] = useState([''])
+  const SendData = (e) => {
+    if(_title === ''){
+      alert("Podaj tytuł książki!");
+    }else{
+      let fladze = false
+      for(var i = 0; i < DATA.length;i++){
+        if(DATA[i].title === _title){
+          fladze = true
+          console.log(fladze)
+        }
+      }
+      if(!fladze){
+        var requestOptions = {
+          method: "POST",
+          redirect: "follow",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({title: _title, src: _src, rating: _rating})
+        };
+        fetch("http://localhost:3001/posts", requestOptions)
+        .then(updateDATA([...DATA, {title: _title, src: _src, rating: _rating}]))
+        .catch(error => console.log("error", error)); //nigger?????🆖🈁🆖🆖🆖🆖🆖🆖🆗🆗🆗🚮
+      }else{
+        alert("Recenzja tej książki już istniejex 🆖");
+      }
+    }
+  };
+
+  const [_title, changeTitle] = useState('');
   const changeInput = (e) => {
     changeTitle(e.target.value);
   }
 
-  const [_src, changeSrc] = useState(['tre'])
+  const [_src, changeSrc] = useState('');
 
-  const convertImage = (imageFile) => { //it works
+  const convertImage = (imageFile) => { //it works // it doesnt on gif you fucking minging bitch focken mingen 😫🤬🤧🥺💀💀💀☠☠☠☠🤡🤡🤡🤡🤠👺🦍🦍🦍👀🦴🦷👄👩‍👩‍👦👩🏽‍🤝‍👩🏻👩🏿‍🤝‍🧑🏾👩🏿‍🤝‍🧑🏾👩🏿‍🤝‍🧑🏾👩🏿‍🤝‍🧑🏾👩🏿‍🤝‍🧑🏾👩🏿‍🤝‍🧑🏾👨🏿‍🤝‍👨🏾👨🏿‍🤝‍👨🏾👩🏿‍🦰🧓🏿👴🏿👩🏿👨🏿🧑🏿👧🏿👦🏿🧒🏿👨🏿‍🦱👩🏿‍🦱👸🏿🎅🏿🤶🏿👼🏿🧔🏿👲🏿👩🏿‍🦳👨🏿‍🦳🤴🏿👳🏿‍♂️👨🏿‍🚒👩🏿‍🚒👨🏿‍🚀👩🏿‍🚀🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🛀🏿🕴🏿🍩🥑🏳‍🌈🏳‍🌈🏳‍🌈🏳‍🌈🏳‍🌈🏳‍🌈🏴‍☠️🌖🌞🌛🌜🛐🛐🛐✝♍♾🈷🈷🈷🈷🈷🈷🈷🈷🈷⚜🚾🚾🆕🆒🆖🔢⏩🕗🕗🕗🕗🕗
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -56,17 +76,22 @@ function Add(props) {
 
   const changeInput1 = (e) => {
     const image = e.target.files[0]
-
     convertImage(image);
   }
-  const [_rating, changeRating] = useState(0);
+  const [_rating, changeRating] = useState(2);
+
   const changerating =() =>{
-    let radios = document.querySelectorAll('input[name="rate"]:checked')
-    let rate = []
-    radios.forEach((radio) =>{
-      rate.push(radio.value)
-    })
-    changeRating(rate)
+    if(rateRef.current.checked){
+      rateRefText.current.textContent = "👍"
+      if(rateRef.current.checked){
+        changeRating(1)
+      }
+    }else{
+      rateRefText.current.textContent = "👎"
+      if(!rateRef.current.checked){
+        changeRating(0)
+      }
+    }
   }
   const clickHandler = () => {
     SendData()
@@ -74,18 +99,33 @@ function Add(props) {
     
   return (
     <div>
-      <form id="miform">
-        <p>Title:</p>
-        <input id="inputuno" type="text" value={_title} onChange={changeInput}></input><br></br>
-        <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
-        <textarea rows="10" cols="100">Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️</textarea>
-        <p>Rating:</p>
-        <div class="rate">
-          {[...Array(10)].map((_, x) => <><input type="radio" onChange={changerating} id={"star" + (10 - x)} name="rate" value={10 - x} /><label for={"star" + (10-x)} title="text"></label></>)}
+      <form id="miform" onSubmit={noDo}>
+        <div className="titlebar">
+          <p>Title:</p>
+          <input id="inputuno" type="text" value={_title} onChange={changeInput}></input><br/>
         </div>
-        
-        <input type="submit" onClick={clickHandler} value="OK"></input>
+        <div>
+          <Tile title={_title === null ? "Placeholder" : (_title === '' ? "Placeholder" : _title)} src={_src === undefined ? '' : _src} rating={_rating} />
+          <textarea rows="10" cols="50" placeholder="Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️"></textarea><br/>
+          <label className='custom-input'>
+            <p>Wybierz plik</p>
+            <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
+          </label>
+          <div className="rate">
+          <p>Rating:</p>
+          <div>
+            <label className='custom-label'>
+              <p className='custom-like' ref={rateRefText}>👍</p>
+              <input type="checkbox" className='like' onChange={changerating} name="rate" ref={rateRef} ></input>
+            </label>
+          </div>
+          <input type="submit" onClick={clickHandler} value="OK"></input>
+        </div>
+        </div>
       </form>
+      <div>
+      
+      </div>
     </div>
   );
 }
