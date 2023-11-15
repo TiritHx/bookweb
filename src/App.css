@@ -127,8 +127,7 @@ body {
 
 textarea {
   background-color: rgb(var(--light-gray));
-  margin-right: 10px;
-}
+  margin-right: 10px}
 
 textarea::placeholder{
   color: rgb(182, 182, 182);
@@ -150,7 +149,7 @@ form p{
 
 input[type=text]{
   background-color: rgba(255, 255, 255, 0.349);
-  padding: 2vh 1vh;
+  padding: 2vh 0;
   width: 100%;
   border: 1px solid black;
   margin-bottom: 1vh;
@@ -173,10 +172,6 @@ input[type=submit]{
 .test{
   clear: both;
   margin: auto;
-}
-
-input[type=file] {
-  display: none;
 }
 
 .custom-input p{
@@ -209,9 +204,13 @@ input[type=checkbox] {
   margin: auto;
 }
 
-.discription{
-  -webkit-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
-  -moz-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
-  box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+label {
+  display: block;
 }
 
+#file {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  color: rgba(255, 255, 255, 0) !important;
+}

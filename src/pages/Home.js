@@ -41,7 +41,7 @@ function App() {
     <div>
       <Menu /> 
       <div className='container'> 
-        {DATA.map((x, index) => <Tile title={x.title} src={x.src === undefined ? '' : x.src} rating={x.rating} key={index} />)}
+        {DATA.map((x, index) => <Tile title={x.title === '' ? "Placeholder" : x.title} src={x.src === undefined ? '' : x.src} rating={x.rating} key={index} />)}
         <button style={{display: "none"}} onClick={SendData}></button> 
         {/* ten guzior ma moc wysyłania rzeczy do dazy banych, używać z rozwagą, może nadpisać całą daze banych */}
       </div>
