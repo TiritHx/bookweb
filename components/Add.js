@@ -1,50 +1,114 @@
-import React, { useState } from "react"
+import { useEffect, useState, useRef } from 'react';
 
 function Add(props) {
-  const [input, setinput] = useState([])
+  const rateRef = useRef();
+  const rateRefText = useRef();
+
+
+  const SendData = () => {
+    var requestOptions = {
+      method: "POST",
+      redirect: "follow",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({title: _title, src: _src, rating: _rating})
+    };
+    fetch("http://localhost:3001/posts", requestOptions)
+    .then(updateDATA([...DATA, {title: _title, src: _src, rating: _rating}]))
+    .catch(error => console.log("error", error));    
+  };
+
+  const [DATA, updateDATA] = useState(['']);
+    
+      const getData = () => {
+        var requestOptions = {
+          method: "GET",
+          redirect: "follow",
+        };
+    
+        fetch("http://localhost:3001/posts", requestOptions)
+          .then((response) => response.json())
+          .then((result) => updateDATA(result))
+          .catch((error) => console.log("error", error));
+      };
+    
+      useEffect(() => {
+        getData();
+      }, []);
+
+  const [_title, changeTitle] = useState('')
   const changeInput = (e) => {
-    setinput(e.target.value);
-  }
-  const [input1, setinput1] = useState([])
-  const changeInput1 = (e) => {
-    setinput1(e.target.value);
-  }
-  const clickHandler = (e) => {
-    e.preventDefault();
-    props.onSaveInnerData({title: input, src: null, rating: input1});
+    changeTitle(e.target.value);
   }
 
+  const [_src, changeSrc] = useState('')
+
+  const convertImage = (imageFile) => { //it works
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const dataURL = e.target.result;
+      changeSrc(dataURL);
+    };
+
+    reader.readAsDataURL(imageFile);
+  };
+
+  const changeInput1 = (e) => {
+    const image = e.target.files[0]
+    convertImage(image);
+  }
+  const [_rating, changeRating] = useState(0);
+
+  const changerating =() =>{
+    if(rateRef.current.checked){
+      rateRefText.current.textContent = "👍"
+      if(rateRef.current.checked){
+        changeRating(1)
+      }
+    }else{
+      rateRefText.current.textContent = "👎"
+      if(!rateRef.current.checked){
+        changeRating(0)
+      }
+    }
+  }
+  const clickHandler = () => {
+    SendData()
+  }
+    
   return (
     <div>
       <form id="miform">
-        <p>Title:</p>
-        <input id="inputuno" type="text" value={input} onChange={changeInput}></input><br></br>
-        <p>Rating:</p>
-        <div class="rate">
-          <input type="radio" id="star10" name="rate" value="10" />
-          <label for="star10" title="text">10 stars</label>
-          <input type="radio" id="star9" name="rate" value="9" />
-          <label for="star9" title="text">9 stars</label>
-          <input type="radio" id="star8" name="rate" value="8" />
-          <label for="star8" title="text">8 stars</label>
-          <input type="radio" id="star7" name="rate" value="7" />
-          <label for="star7" title="text">7 stars</label>
-          <input type="radio" id="star6" name="rate" value="6" />
-          <label for="star6" title="text">6 star</label>
-          <input type="radio" id="star5" name="rate" value="5" />
-          <label for="star5" title="text">5 stars</label>
-          <input type="radio" id="star4" name="rate" value="4" />
-          <label for="star4" title="text">4 stars</label>
-          <input type="radio" id="star3" name="rate" value="3" />
-          <label for="star3" title="text">3 stars</label>
-          <input type="radio" id="star2" name="rate" value="2" />
-          <label for="star2" title="text">2 stars</label>
-          <input type="radio" id="star1" name="rate" value="1" />
-          <label for="star1" title="text">1 star</label>
+        <div className="titlebar">
+          <p>Title:</p>
+          <input id="inputuno" type="text" value={_title} onChange={changeInput}></input><br/>
         </div>
-        {/* <input id="inputdos" type="text" value={input1} onChange={changeInput1}></input><br></br> */}
-        <input type="submit" onClick={clickHandler} value="OK"></input>
+        <div className="discription">
+          <textarea rows="10" cols="100" placeholder="Opis książki 👨‍🦯🚣‍♀️🚴‍♀️🚴‍♀️🚴‍♀️"></textarea><br/>
+          <label className='custom-input'>
+            <p>Wybierz plik</p>
+            <input id="file" name="file" type="file" accept='image/*' onChange={changeInput1}/>
+          </label>
+          <div className="rate">
+          <p>Rating:</p>
+          <div>
+            <label className='custom-label'>
+              <p className='custom-like' ref={rateRefText}>👍</p>
+              <input type="checkbox" className='like' onChange={changerating} name="rate" ref={rateRef} ></input>
+            </label>
+          </div>
+          <input type="submit" onClick={clickHandler} value="OK"></input>
+        </div>
+        </div>
       </form>
+      <div>
+        <div className="border tile test">
+          <p>{_title}</p>
+          <img src={_src} className='imagetest' alt=''></img>
+          <p>{_rating}</p>
+        </div>
+        <p className='overview'>Overview</p>
+      </div>
     </div>
   );
 }
