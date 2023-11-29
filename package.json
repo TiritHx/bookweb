@@ -16,9 +16,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm-run-all --parallel site server",
+    "start": "npm-run-all --parallel server server2 site",
     "site": "react-scripts start",
     "server": "node ./server/server.js",
+    "server2": "node ./server/server2.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
