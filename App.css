@@ -3,6 +3,7 @@
   --gray: 75, 75, 75;
   --light-gray: 115, 115, 115;
   --light-gray-2: 125, 125, 125;
+  --dark-gray: 65, 65, 65;
 }
 
 @font-face {
@@ -57,8 +58,25 @@ body {
   background-color: rgb(var(--gray));
 }
 
+#menu{
+  height: 10vh;
+  width: 100%;
+  background-color: rgb(var(--dark-gray));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#menu a {
+  font-size: 5vh;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow: 0px 0px 30px rgba(255, 255, 255, 0.4);
+}
+
 .border {
   border: 1px solid rgb(255, 255, 255);
+  border-radius: 2px;
   /* margin: var(--custom-calc) 0 0 var(--custom-calc); */
 }
 
@@ -81,9 +99,12 @@ body {
   max-width: 34vh;
   min-width: 34vh;
   min-height: 34vh;
-  background-color: rgb(65, 65, 65);
+  background-color: rgb(var(--dark-gray));
   text-align: center;
   justify-content: center;
+  -webkit-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+  -moz-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+  box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
 }
 
 .tile img {
@@ -104,9 +125,18 @@ body {
   font-weight: bold;
 }
 
+textarea {
+  background-color: rgb(var(--light-gray));
+  margin-right: 10px;
+}
+
+textarea::placeholder{
+  color: rgb(182, 182, 182);
+}
+
 form{
+  height: auto;
   width: 90%;
-  text-align: center;
   margin: auto;
 }
 
@@ -115,13 +145,12 @@ form :first-child{
 }
 
 form p{
-  text-align: left;
   font-size: 140%;
 }
 
 input[type=text]{
   background-color: rgba(255, 255, 255, 0.349);
-  padding: 2vh 1vh;
+  padding: 2vh 0;
   width: 100%;
   border: 1px solid black;
   margin-bottom: 1vh;
@@ -130,40 +159,89 @@ input[type=text]{
 input[type=submit]{
   background-color: rgba(255, 255, 255, 0.205);
   padding: 1vh 10vh;
+  cursor: pointer;
+}
+
+.imagetest{
+  max-width: 100%;
+  max-height: 75%;
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+}
+
+.test{
+  clear: both;
+  margin: auto;
+}
+
+input[type=file] {
+  display: none;
+}
+
+/* naprawiam guzik wybierz plikens - ticz*/
+
+label {
+  display: block;
+  max-width: 40px;
+}
+
+.custom-input p{
+  background-color: rgba(255, 255, 255, 0.205);
+  padding: 1vh 10vh;
+  width: 8vw;
+  text-align: center;
+  cursor: pointer;
+}
+
+.custom-label p{
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input[type=checkbox] {
+  cursor: pointer;
+  display: none;
+  width: auto;
 }
 
 .rate {
-  float: left;
-  height: 46px;
-  padding: 0 10px;
+  max-width: 30vw;
 }
-.rate:not(:checked) > input {
-  position:absolute;
-  top:-9999px;
+
+form div .tile {
+  float: right;
+  margin: 0;
 }
-.rate:not(:checked) > label {
-  float:right;
-  width:1em;
-  overflow:hidden;
-  white-space:nowrap;
-  cursor:pointer;
-  font-size:30px;
-  color:#ccc;
+
+form div .tile p {
+  margin: 1px;
 }
-.rate:not(:checked) > label:before {
-  content: '★ ';
+
+.discription{
+  -webkit-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+  -moz-box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
+  box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
 }
-.rate > input:checked ~ label {
-  color: #ffc700;    
+
+.book{
+  display: flex;
+  width: 90%;
+  margin: auto;
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  color: #deb217;  
+
+.book-title{
+  width: 50%;
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-  color: #c59b08;
+
+.book-image{
+  width: 50%;
+}
+
+.book-image img{
+  max-width: 50vh;
+  max-height: 50vh;
+  object-fit: cover;
+  border: 5px solid black;
 }
