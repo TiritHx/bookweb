@@ -1,6 +1,5 @@
 import '../App.css';
 import { useEffect, useState } from 'react';
-import Menu from '../components/Menu';
 import Tile from '../components/Tile';
 
 function App() {
@@ -25,9 +24,8 @@ function App() {
   
   return (
     <div>
-      <Menu />
       <div className='container'> 
-        {DATA.map((x, index) => <Tile title={x.title} src={x.src == undefined ? '' : x.src} rating={x.rating} key={index} />)}
+        {DATA.map((x, index) => <Tile title={x.title} src={x.src == undefined ? '' : x.src} rating={x.rating} description={x.description} key={index} />)}
       </div>
     </div>
   );
