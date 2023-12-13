@@ -4,6 +4,7 @@
   --light-gray: 115, 115, 115;
   --light-gray-2: 125, 125, 125;
   --dark-gray: 65, 65, 65;
+  cursor: wait !important;
 }
 
 @font-face {
@@ -225,3 +226,23 @@ form div .tile p {
   box-shadow: 0px 0px 10px 4px rgba(var(--dark-gray), 1);
 }
 
+.book{
+  display: flex;
+  width: 90%;
+  margin: auto;
+}
+
+.book-title{
+  width: 50%;
+}
+
+.book-image{
+  width: 50%;
+}
+
+.book-image img{
+  max-width: 50vh;
+  max-height: 50vh;
+  object-fit: cover;
+  border: 5px solid black;
+}
